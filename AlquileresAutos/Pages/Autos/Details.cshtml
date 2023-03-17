@@ -1,0 +1,43 @@
+﻿@page
+@model AlquileresAutos.Pages.Autos.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Auto</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Auto.Patente)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Auto.Patente)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Auto.capacidadTanque)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Auto.capacidadTanque)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Auto.kilometraje)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Auto.kilometraje)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Auto.fechaCompra)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Auto.fechaCompra)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Auto?.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
