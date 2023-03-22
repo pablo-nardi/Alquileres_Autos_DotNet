@@ -15,11 +15,12 @@ namespace AlquileresAutos.Data
         }
 
         public DbSet<Auto> Autos { get; set; }
-
+        public DbSet<Modelo> Modelos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Auto>().ToTable("Auto");
+            modelBuilder.Entity<Modelo>().ToTable("Modelo");
         }
-        //public DbSet<AlquileresAutos.Models.Auto> Auto { get; set; } = default!;
+
     }
 }

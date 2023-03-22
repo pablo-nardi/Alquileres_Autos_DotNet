@@ -1,0 +1,64 @@
+﻿@page
+@model AlquileresAutos.Pages.Modelos.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Modelo</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Modelo.cantEquipajeChico" class="control-label"></label>
+                <input asp-for="Modelo.cantEquipajeChico" class="form-control" />
+                <span asp-validation-for="Modelo.cantEquipajeChico" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo.cantEquipajeGrande" class="control-label"></label>
+                <input asp-for="Modelo.cantEquipajeGrande" class="form-control" />
+                <span asp-validation-for="Modelo.cantEquipajeGrande" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo.cantPasajeros" class="control-label"></label>
+                <input asp-for="Modelo.cantPasajeros" class="form-control" />
+                <span asp-validation-for="Modelo.cantPasajeros" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo.precioPorDia" class="control-label"></label>
+                <input asp-for="Modelo.precioPorDia" class="form-control" />
+                <span asp-validation-for="Modelo.precioPorDia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo.denominacion" class="control-label"></label>
+                <input asp-for="Modelo.denominacion" class="form-control" />
+                <span asp-validation-for="Modelo.denominacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo.transmision" class="control-label"></label>
+                <input asp-for="Modelo.transmision" class="form-control" />
+                <span asp-validation-for="Modelo.transmision" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Modelo.aireAcondicionado" class="control-label"></label>
+                <input asp-for="Modelo.aireAcondicionado" class="form-control" />
+                <span asp-validation-for="Modelo.aireAcondicionado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
