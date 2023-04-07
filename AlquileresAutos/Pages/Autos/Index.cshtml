@@ -17,17 +17,18 @@
                 @Html.DisplayNameFor(model => model.Auto[0].Patente)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Auto[0].capacidadTanque)
+                @Html.DisplayNameFor(model => model.Auto[0].CapacidadTanque)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Auto[0].kilometraje)
+                @Html.DisplayNameFor(model => model.Auto[0].Kilometraje)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Auto[0].fechaCompra)
+                @Html.DisplayNameFor(model => model.Auto[0].FechaCompra)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Auto[0].detalle)
+                @Html.DisplayNameFor(model => model.Auto[0].Detalle)
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -37,16 +38,16 @@
                 @Html.DisplayFor(modelItem => item.Patente)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.capacidadTanque)
+                @Html.DisplayFor(modelItem => item.CapacidadTanque)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.kilometraje)
+                @Html.DisplayFor(modelItem => item.Kilometraje)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.fechaCompra)
+                @Html.DisplayFor(modelItem => item.FechaCompra)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.detalle)
+                @Html.DisplayFor(modelItem => item.Detalle)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

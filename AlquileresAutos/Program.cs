@@ -7,6 +7,7 @@ using AlquileresAutos.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
+//    options.UseSqlServer(builder.Configuration.GetConnectionString("AlquileresAutosModelos") ?? throw new InvalidOperationException("Connection string 'AlquileresAutosModelos' not found.")));
 
 builder.Services.AddDbContext<AlquileresAutosContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AlquileresAutosContext") ?? throw new InvalidOperationException("Connection string 'AlquileresAutosContext' not found.")));
@@ -34,7 +35,7 @@ using (var scope = app.Services.CreateScope())
 
     var context = services.GetRequiredService<AlquileresAutosContext>();
     context.Database.EnsureCreated();
-    DbInitializer.Initialize(context);
+    //DbInitializer.Initialize(context);
 }
 
 app.UseHttpsRedirection();

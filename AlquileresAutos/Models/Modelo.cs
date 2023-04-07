@@ -5,13 +5,15 @@ namespace AlquileresAutos.Models
     public class Modelo
     {
         public int ID { get; set; }
-        public int cantEquipajeChico { get; set; }
-        public int cantEquipajeGrande { get; set; }
-        public int cantPasajeros { get; set; }
-        public float precioPorDia { get; set; }
-        public string denominacion { get; set; }
-        public string transmision { get; set; }
-        public string aireAcondicionado { get; set; }
+        public int CantEquipajeChico { get; set; }
+        public int CantEquipajeGrande { get; set; }
+        public int CantPasajeros { get; set; }
+        public float PrecioPorDia { get; set; }
+        public string Denominacion { get; set; }
+        public string Transmision { get; set; }
+        public string AireAcondicionado { get; set; }
+        
+        //public TipoAuto tipoAuto {get; set;}
 
     }
 }

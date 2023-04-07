@@ -12,8 +12,8 @@ namespace AlquileresAutos.Data
 
             var autos = new Auto[]
             {
-                new Auto{ Patente="AE851AR", capacidadTanque=54, kilometraje=100, fechaCompra=DateTime.Parse("10/07/2021"), detalle="Auto nuevo" },
-                new Auto{ Patente="RC855AR", capacidadTanque=54, kilometraje=1000, fechaCompra=DateTime.Parse("10/07/2020"), detalle="Auto nuevo" }
+                new Auto{ Patente="AE851AR", CapacidadTanque=54, Kilometraje=100, FechaCompra=DateTime.Parse("10/07/2021"), Detalle="Auto nuevo" },
+                new Auto{ Patente="RC855AR", CapacidadTanque=54, Kilometraje=1000, FechaCompra=DateTime.Parse("10/07/2020"), Detalle="Auto nuevo" }
             };
 
             context.Autos.AddRange(autos);
