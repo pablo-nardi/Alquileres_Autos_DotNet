@@ -36,6 +36,7 @@ namespace AlquileresAutos.Pages.Modelos
                 return NotFound();
             }
             Modelo = modelo;
+           ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
             return Page();
         }
 

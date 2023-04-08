@@ -12,8 +12,8 @@ namespace AlquileresAutos.Models
         public string Denominacion { get; set; }
         public string Transmision { get; set; }
         public string AireAcondicionado { get; set; }
-        
-        //public TipoAuto tipoAuto {get; set;}
+        public int? TipoAutoID { get; set; }
+        public TipoAuto tipoAuto {get; set;}
 
     }
 }

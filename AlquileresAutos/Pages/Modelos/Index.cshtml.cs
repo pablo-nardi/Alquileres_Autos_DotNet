@@ -25,7 +25,8 @@ namespace AlquileresAutos.Pages.Modelos
         {
             if (_context.Modelos != null)
             {
-                Modelo = await _context.Modelos.ToListAsync();
+                Modelo = await _context.Modelos
+                .Include(m => m.tipoAuto).ToListAsync();
             }
         }
     }

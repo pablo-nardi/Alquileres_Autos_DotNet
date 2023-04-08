@@ -4,6 +4,7 @@ using AlquileresAutos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlquileresAutos.Migrations
 {
     [DbContext(typeof(AlquileresAutosContext))]
-    partial class AlquileresAutosContextModelSnapshot : ModelSnapshot
+    [Migration("20230408003314_ArmadoAbmComplejo1")]
+    partial class ArmadoAbmComplejo1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -81,15 +84,15 @@ namespace AlquileresAutos.Migrations
                     b.Property<float>("PrecioPorDia")
                         .HasColumnType("real");
 
-                    b.Property<int?>("TipoAutoID")
-                        .HasColumnType("int");
-
                     b.Property<string>("Transmision")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("tipoAutoID")
+                        .HasColumnType("int");
+
                     b.HasKey("ID");
 
-                    b.HasIndex("TipoAutoID");
+                    b.HasIndex("tipoAutoID");
 
                     b.ToTable("Modelo", (string)null);
                 });
@@ -123,7 +126,7 @@ namespace AlquileresAutos.Migrations
                 {
                     b.HasOne("AlquileresAutos.Models.TipoAuto", "tipoAuto")
                         .WithMany()
-                        .HasForeignKey("TipoAutoID");
+                        .HasForeignKey("tipoAutoID");
 
                     b.Navigation("tipoAuto");
                 });

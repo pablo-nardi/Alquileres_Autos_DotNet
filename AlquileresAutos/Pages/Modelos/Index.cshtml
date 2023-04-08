@@ -34,6 +34,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Modelo[0].AireAcondicionado)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].tipoAuto)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -60,6 +63,9 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.AireAcondicionado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoAuto.ID)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

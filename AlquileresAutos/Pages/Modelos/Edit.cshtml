@@ -50,6 +50,11 @@
                 <span asp-validation-for="Modelo.AireAcondicionado" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Modelo.TipoAutoID" class="control-label"></label>
+                <select asp-for="Modelo.TipoAutoID" class="form-control" asp-items="ViewBag.TipoAutoID"></select>
+                <span asp-validation-for="Modelo.TipoAutoID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
