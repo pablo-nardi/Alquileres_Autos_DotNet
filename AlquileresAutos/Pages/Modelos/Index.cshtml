@@ -1,0 +1,72 @@
+﻿@page
+@model AlquileresAutos.Pages.Modelos.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].CantEquipajeChico)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].CantEquipajeGrande)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].CantPasajeros)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].PrecioPorDia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].Denominacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].Transmision)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo[0].AireAcondicionado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Modelo) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantEquipajeChico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantEquipajeGrande)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CantPasajeros)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioPorDia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Denominacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Transmision)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AireAcondicionado)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
