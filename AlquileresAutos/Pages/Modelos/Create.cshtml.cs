@@ -10,7 +10,7 @@ using AlquileresAutos.Models;
 
 namespace AlquileresAutos.Pages.Modelos
 {
-    public class CreateModel : PageModel
+    public class CreateModel : TipoAutoNombrePageModel
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
 
@@ -21,7 +21,8 @@ namespace AlquileresAutos.Pages.Modelos
 
         public IActionResult OnGet()
         {
-        ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
+            // ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
+            cargarListaNombreTipoAuto(_context);
             return Page();
         }
 
@@ -32,15 +33,29 @@ namespace AlquileresAutos.Pages.Modelos
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            var emptyModelos = new Modelo();
+
+            if ( await TryUpdateModelAsync<Modelo>(emptyModelos, 
+                                                    "Modelo", 
+                                                    s => s.AireAcondicionado,
+                                                    s=> s.CantEquipajeChico,
+                                                    s => s.CantEquipajeGrande,
+                                                    s => s.CantPasajeros,
+                                                    s => s.ID,
+                                                    s => s.Denominacion,
+                                                    s => s.PrecioPorDia,
+                                                    s => s.Transmision,
+                                                    s => s.TipoAutoID
+                                                    ) )
             {
-                return Page();
+                _context.Modelos.Add(Modelo);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
 
-            _context.Modelos.Add(Modelo);
-            await _context.SaveChangesAsync();
+            cargarListaNombreTipoAuto(_context, emptyModelos.TipoAutoID);
+            return Page();
 
-            return RedirectToPage("./Index");
         }
     }
 }
