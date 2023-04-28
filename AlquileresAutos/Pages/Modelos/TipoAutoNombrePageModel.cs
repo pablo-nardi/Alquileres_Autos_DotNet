@@ -16,10 +16,10 @@ namespace AlquileresAutos.Pages.Modelos
                                 orderby t.NombreTipo
                                 select t;
 
-            TipoAutoNombreSL = new SelectList(  tipoAutoQuery.AsNoTracking(),
-                                                nameof(TipoAuto.ID),
-                                                nameof(TipoAuto.NombreTipo), 
-                                                selectDepartment);
+            TipoAutoNombreSL = new SelectList(tipoAutoQuery.AsNoTracking(),
+                nameof(TipoAuto.ID),
+                nameof(TipoAuto.NombreTipo), 
+                selectDepartment);
         }
     }
 }

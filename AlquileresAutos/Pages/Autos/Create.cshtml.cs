@@ -21,6 +21,7 @@ namespace AlquileresAutos.Pages.Autos
 
         public IActionResult OnGet()
         {
+        ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
             return Page();
         }
 

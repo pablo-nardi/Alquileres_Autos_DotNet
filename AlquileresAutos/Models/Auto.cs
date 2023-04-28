@@ -17,7 +17,8 @@ namespace AlquileresAutos.Models
         public float Kilometraje { get; set; }
         public DateTime FechaCompra { get; set; }
         public string Detalle { get; set; }
+        public int ModeloID { get; set; }
         public Modelo Modelo { get; set; }
-       // public Estado Estado { get; set; }
+        public Estado Estado { get; set; }
     }
 }

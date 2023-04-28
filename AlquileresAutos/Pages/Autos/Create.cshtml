@@ -39,6 +39,18 @@
                 <span asp-validation-for="Auto.Detalle" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Auto.ModeloID" class="control-label"></label>
+                <select asp-for="Auto.ModeloID" class ="form-control" asp-items="ViewBag.ModeloID"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Auto.Estado" class="control-label"></label>
+                <select asp-for="Auto.Estado" class="form-control">
+                    <option value="Disponible">Disponible</option>
+                    <option value="Alquilado">Alquilado</option>
+                </select>
+                <span asp-validation-for="Auto.Estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
         </form>
