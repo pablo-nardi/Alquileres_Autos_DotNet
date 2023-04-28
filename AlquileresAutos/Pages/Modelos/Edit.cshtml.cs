@@ -11,7 +11,7 @@ using AlquileresAutos.Models;
 
 namespace AlquileresAutos.Pages.Modelos
 {
-    public class EditModel : PageModel
+    public class EditModel : TipoAutoNombrePageModel
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
 
@@ -30,49 +30,51 @@ namespace AlquileresAutos.Pages.Modelos
                 return NotFound();
             }
 
-            var modelo =  await _context.Modelos.FirstOrDefaultAsync(m => m.ID == id);
-            if (modelo == null)
+            Modelo =  await _context.Modelos.FirstOrDefaultAsync(m => m.ID == id);
+
+            if (Modelo == null)
             {
                 return NotFound();
             }
-            Modelo = modelo;
-           ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
+
+            //ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
+            cargarListaNombreTipoAuto(_context, Modelo.TipoAutoID);
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (!ModelState.IsValid)
+
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Modelo).State = EntityState.Modified;
+            var modeloActualizar = await _context.Modelos.FindAsync(id);
 
-            try
+            if (modeloActualizar == null)
+            {
+                return NotFound();
+            }
+            if (await TryUpdateModelAsync<Modelo>(
+                 modeloActualizar,
+                 "Modelo",   // Prefix for form value.
+                    s => s.AireAcondicionado,
+                    s => s.CantEquipajeChico,
+                    s => s.CantEquipajeGrande,
+                    s => s.CantPasajeros,
+                    s => s.Denominacion,
+                    s => s.PrecioPorDia,
+                    s => s.Transmision,
+                    s => s.TipoAutoID))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ModeloExists(Modelo.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool ModeloExists(int id)
-        {
-          return _context.Modelos.Any(e => e.ID == id);
+            // Select DepartmentID if TryUpdateModelAsync fails.
+            cargarListaNombreTipoAuto(_context, modeloActualizar.TipoAutoID);
+            return Page();
         }
     }
 }

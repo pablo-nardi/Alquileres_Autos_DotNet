@@ -28,7 +28,10 @@ namespace AlquileresAutos.Pages.Modelos
                 return NotFound();
             }
 
-            var modelo = await _context.Modelos.FirstOrDefaultAsync(m => m.ID == id);
+            var modelo = await _context.Modelos
+                                .AsNoTracking()
+                                .Include(t => t.tipoAuto)
+                                .FirstOrDefaultAsync(m => m.ID == id);
             if (modelo == null)
             {
                 return NotFound();

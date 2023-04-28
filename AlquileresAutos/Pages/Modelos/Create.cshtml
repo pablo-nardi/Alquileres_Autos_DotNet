@@ -50,7 +50,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="Modelo.TipoAutoID" class="control-label"></label>
-                <select asp-for="Modelo.TipoAutoID" class ="form-control" asp-items="ViewBag.TipoAutoID"></select>
+                <select asp-for="Modelo.TipoAutoID" class ="form-control" 
+                        asp-items="@Model.TipoAutoNombreSL">
+                    <option value="" >-- Seleccione un Tipo de Auto --</option>
+                    </select>
+                <span asp-validation-for="Modelo.TipoAutoID" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
