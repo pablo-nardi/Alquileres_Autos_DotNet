@@ -10,7 +10,7 @@ using AlquileresAutos.Models;
 
 namespace AlquileresAutos.Pages.Autos
 {
-    public class CreateModel : PageModel
+    public class CreateModel : ModeloNombrePageModel
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
 
@@ -21,7 +21,8 @@ namespace AlquileresAutos.Pages.Autos
 
         public IActionResult OnGet()
         {
-        ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
+            //ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
+            cargarListaModeloNombre(_context);
             return Page();
         }
 
@@ -32,15 +33,26 @@ namespace AlquileresAutos.Pages.Autos
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            var emptyAuto = new Auto();
+
+            if (await TryUpdateModelAsync<Auto>(emptyAuto,
+                "Auto",
+                a => a.ID,
+                a => a.Kilometraje,
+                a => a.CapacidadTanque,
+                a => a.Patente,
+                a => a.Detalle,
+                a => a.Estado,
+                a => a.FechaCompra,
+                a => a.ModeloID))
             {
-                return Page();
+                _context.Autos.Add(Auto);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
 
-            _context.Autos.Add(Auto);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            cargarListaModeloNombre(_context, emptyAuto.ModeloID);
+            return Page();
         }
     }
 }

@@ -11,7 +11,7 @@ using AlquileresAutos.Models;
 
 namespace AlquileresAutos.Pages.Autos
 {
-    public class EditModel : PageModel
+    public class EditModel : ModeloNombrePageModel
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
 
@@ -30,49 +30,51 @@ namespace AlquileresAutos.Pages.Autos
                 return NotFound();
             }
 
-            var auto =  await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
-            if (auto == null)
+            Auto =  await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
+            if (Auto == null)
             {
                 return NotFound();
             }
-            Auto = auto;
-           ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
+
+            //ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
+            cargarListaModeloNombre(_context, Auto.ModeloID);
             return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (!ModelState.IsValid)
+            if (id == null)
             {
-                return Page();
+                return NotFound();
             }
 
-            _context.Attach(Auto).State = EntityState.Modified;
+            var autoAModificar = await _context.Autos.FindAsync(id);
 
-            try
+            if (autoAModificar == null)
+            {
+                return NotFound();
+            }
+
+            if (await TryUpdateModelAsync<Auto>(
+                autoAModificar,
+                "Auto",
+                a => a.ID,
+                a => a.Kilometraje,
+                a => a.CapacidadTanque,
+                a => a.Patente,
+                a => a.Detalle,
+                a => a.Estado,
+                a => a.FechaCompra,
+                a => a.ModeloID))
             {
                 await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AutoExists(Auto.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return RedirectToPage("./Index");
             }
 
-            return RedirectToPage("./Index");
-        }
-
-        private bool AutoExists(int id)
-        {
-          return _context.Autos.Any(e => e.ID == id);
+            cargarListaModeloNombre(_context, autoAModificar.ModeloID);
+            return Page();
         }
     }
 }
