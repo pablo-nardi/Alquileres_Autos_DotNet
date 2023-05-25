@@ -13,6 +13,8 @@ namespace AlquileresAutos.Pages.Autos
     public class CreateModel : ModeloNombrePageModel
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
+        [BindProperty]
+        public DateTime Fecha { get; set; } = DateTime.Now;
 
         public CreateModel(AlquileresAutos.Data.AlquileresAutosContext context)
         {
@@ -33,26 +35,35 @@ namespace AlquileresAutos.Pages.Autos
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            var emptyAuto = new Auto();
-
-            if (await TryUpdateModelAsync<Auto>(emptyAuto,
-                "Auto",
-                a => a.ID,
-                a => a.Kilometraje,
-                a => a.CapacidadTanque,
-                a => a.Patente,
-                a => a.Detalle,
-                a => a.Estado,
-                a => a.FechaCompra,
-                a => a.ModeloID))
+            try
             {
-                _context.Autos.Add(Auto);
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
-            }
+                var emptyAuto = new Auto();
 
-            cargarListaModeloNombre(_context, emptyAuto.ModeloID);
-            return Page();
+                if (await TryUpdateModelAsync<Auto>(emptyAuto,
+                    "Auto",
+                    a => a.ID,
+                    a => a.Kilometraje,
+                    a => a.CapacidadTanque,
+                    a => a.Patente,
+                    a => a.Detalle,
+                    a => a.Estado,
+                    a => a.FechaCompra,
+                    a => a.ModeloID))
+                {
+                    Auto.FechaCompra = Fecha.Date + TimeSpan.Zero;
+                    _context.Autos.Add(Auto);
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("./Index");
+                }
+
+                cargarListaModeloNombre(_context, emptyAuto.ModeloID);
+                return Page();
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] =ex.InnerException.Message;
+                return RedirectToPage("../Error");
+            }
         }
     }
 }

@@ -29,9 +29,9 @@
                 <span asp-validation-for="Auto.Kilometraje" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Auto.FechaCompra" class="control-label"></label>
-                <input asp-for="Auto.FechaCompra" class="form-control" />
-                <span asp-validation-for="Auto.FechaCompra" class="text-danger"></span>
+                <label asp-for="Fecha" class="control-label"></label>
+                <input type="date" asp-for="Fecha" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Detalle" class="control-label"></label>
@@ -48,9 +48,9 @@
             </div>
             <div class="form-group">
                 <label asp-for="Auto.Estado" class="control-label"></label>
-                <select asp-for="Auto.Estado" class="form-control">
-                    <option value="Disponible">Disponible</option>
-                    <option value="Alquilado">Alquilado</option>
+                <select asp-for="Auto.Estado" class="form-control"
+                    asp-items="@Model.EstadoAutoSL">
+                    <option value="" >Selecciones un estado</option>
                 </select>
                 <span asp-validation-for="Auto.Estado" class="text-danger"></span>
             </div>

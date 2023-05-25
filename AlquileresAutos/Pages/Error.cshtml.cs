@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using System;
 using System.Diagnostics;
 
 namespace ContosoUniversity.Pages
@@ -9,6 +11,7 @@ namespace ContosoUniversity.Pages
     public class ErrorModel : PageModel
     {
         public string RequestId { get; set; }
+       // public Exception Exception { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 
@@ -23,5 +26,6 @@ namespace ContosoUniversity.Pages
         {
             RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
         }
+
     }
 }

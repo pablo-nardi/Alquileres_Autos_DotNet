@@ -22,6 +22,9 @@ namespace AlquileresAutos.Data
             modelBuilder.Entity<Auto>().ToTable("Auto");
             modelBuilder.Entity<Modelo>().ToTable("Modelo");
             modelBuilder.Entity<TipoAuto>().ToTable("TipoAuto");
+            modelBuilder.Entity<Auto>()
+                .HasIndex(e => e.Patente)
+                .IsUnique();
         }
 
     }

@@ -4,6 +4,7 @@ using AlquileresAutos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlquileresAutos.Migrations
 {
     [DbContext(typeof(AlquileresAutosContext))]
-    partial class AlquileresAutosContextModelSnapshot : ModelSnapshot
+    [Migration("20230516221241_cambioEnLaDb")]
+    partial class cambioEnLaDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -39,9 +42,6 @@ namespace AlquileresAutos.Migrations
                     b.Property<int>("Estado")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("FechaCompra")
-                        .HasColumnType("datetime2");
-
                     b.Property<float>("Kilometraje")
                         .HasColumnType("real");
 
@@ -56,9 +56,6 @@ namespace AlquileresAutos.Migrations
                     b.HasKey("ID");
 
                     b.HasIndex("ModeloID");
-
-                    b.HasIndex("Patente")
-                        .IsUnique();
 
                     b.ToTable("Auto", (string)null);
                 });

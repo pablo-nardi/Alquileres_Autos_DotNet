@@ -31,6 +31,7 @@ namespace AlquileresAutos.Pages.Autos
             }
 
             Auto =  await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
+
             if (Auto == null)
             {
                 return NotFound();
