@@ -31,15 +31,23 @@ namespace AlquileresAutos.Pages.TipoAutos
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-          if (!ModelState.IsValid)
+            try
             {
-                return Page();
+                if (!ModelState.IsValid)
+                {
+                    return Page();
+                }
+
+                _context.TipoAutos.Add(TipoAuto);
+                await _context.SaveChangesAsync();
+
+                return RedirectToPage("./Index");
             }
-
-            _context.TipoAutos.Add(TipoAuto);
-            await _context.SaveChangesAsync();
-
-            return RedirectToPage("./Index");
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
+            }
         }
     }
 }

@@ -33,29 +33,36 @@ namespace AlquileresAutos.Pages.Modelos
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            var emptyModelos = new Modelo();
-
-            if ( await TryUpdateModelAsync<Modelo>(emptyModelos, 
-                                                    "Modelo", 
-                                                    s => s.AireAcondicionado,
-                                                    s=> s.CantEquipajeChico,
-                                                    s => s.CantEquipajeGrande,
-                                                    s => s.CantPasajeros,
-                                                    s => s.ID,
-                                                    s => s.Denominacion,
-                                                    s => s.PrecioPorDia,
-                                                    s => s.Transmision,
-                                                    s => s.TipoAutoID
-                                                    ) )
+            try
             {
-                _context.Modelos.Add(Modelo);
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
+                var emptyModelos = new Modelo();
+
+                if (await TryUpdateModelAsync<Modelo>(emptyModelos,
+                                                        "Modelo",
+                                                        s => s.AireAcondicionado,
+                                                        s => s.CantEquipajeChico,
+                                                        s => s.CantEquipajeGrande,
+                                                        s => s.CantPasajeros,
+                                                        s => s.ID,
+                                                        s => s.Denominacion,
+                                                        s => s.PrecioPorDia,
+                                                        s => s.Transmision,
+                                                        s => s.TipoAutoID
+                                                        ))
+                {
+                    _context.Modelos.Add(Modelo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("./Index");
+                }
+
+                cargarListaNombreTipoAuto(_context, emptyModelos.TipoAutoID);
+                return Page();
             }
-
-            cargarListaNombreTipoAuto(_context, emptyModelos.TipoAutoID);
-            return Page();
-
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
+            }
         }
     }
 }

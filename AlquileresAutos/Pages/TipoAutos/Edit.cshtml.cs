@@ -25,48 +25,59 @@ namespace AlquileresAutos.Pages.TipoAutos
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.TipoAutos == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null || _context.TipoAutos == null)
+                {
+                    return NotFound();
+                }
 
-            var tipoauto =  await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
-            if (tipoauto == null)
-            {
-                return NotFound();
+                var tipoauto = await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
+                if (tipoauto == null)
+                {
+                    return NotFound();
+                }
+                TipoAuto = tipoauto;
+                return Page();
             }
-            TipoAuto = tipoauto;
-            return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
-
-            _context.Attach(TipoAuto).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TipoAutoExists(TipoAuto.ID))
+                if (!ModelState.IsValid)
                 {
-                    return NotFound();
+                    return Page();
                 }
-                else
-                {
-                    throw;
-                }
-            }
 
-            return RedirectToPage("./Index");
+                _context.Attach(TipoAuto).State = EntityState.Modified;
+
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!TipoAutoExists(TipoAuto.ID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+
+                return RedirectToPage("./Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
+            }
         }
 
         private bool TipoAutoExists(int id)

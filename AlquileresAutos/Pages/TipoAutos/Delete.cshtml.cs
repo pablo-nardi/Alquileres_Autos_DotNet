@@ -24,40 +24,56 @@ namespace AlquileresAutos.Pages.TipoAutos
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.TipoAutos == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null || _context.TipoAutos == null)
+                {
+                    return NotFound();
+                }
 
-            var tipoauto = await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
+                var tipoauto = await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (tipoauto == null)
-            {
-                return NotFound();
+                if (tipoauto == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    TipoAuto = tipoauto;
+                }
+                return Page();
             }
-            else 
+            catch (Exception ex)
             {
-                TipoAuto = tipoauto;
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.TipoAutos == null)
+            try
             {
-                return NotFound();
-            }
-            var tipoauto = await _context.TipoAutos.FindAsync(id);
+                if (id == null || _context.TipoAutos == null)
+                {
+                    return NotFound();
+                }
+                var tipoauto = await _context.TipoAutos.FindAsync(id);
 
-            if (tipoauto != null)
+                if (tipoauto != null)
+                {
+                    TipoAuto = tipoauto;
+                    _context.TipoAutos.Remove(TipoAuto);
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToPage("./Index");
+            }
+            catch (Exception ex)
             {
-                TipoAuto = tipoauto;
-                _context.TipoAutos.Remove(TipoAuto);
-                await _context.SaveChangesAsync();
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-
-            return RedirectToPage("./Index");
         }
     }
 }

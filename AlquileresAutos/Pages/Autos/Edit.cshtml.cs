@@ -23,59 +23,79 @@ namespace AlquileresAutos.Pages.Autos
         [BindProperty]
         public Auto Auto { get; set; } = default!;
 
+        
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Autos == null)
+            try
             {
-                return NotFound();
+                if (id == null || _context.Autos == null)
+                {
+                    return NotFound();
+                }
+
+                Auto = await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
+
+                if (Auto == null)
+                {
+                    return NotFound();
+                }
+
+                //ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
+                cargarListaModeloNombre(_context, Auto.ModeloID);
+                return Page();
             }
-
-            Auto =  await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Auto == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-
-            //ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
-            cargarListaModeloNombre(_context, Auto.ModeloID);
-            return Page();
         }
 
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var autoAModificar = await _context.Autos.FindAsync(id);
+
+                if (autoAModificar == null)
+                {
+                    return NotFound();
+                }
+
+                if (await TryUpdateModelAsync<Auto>(
+                    autoAModificar,
+                    "Auto",
+                    a => a.ID,
+                    a => a.Kilometraje,
+                    a => a.CapacidadTanque,
+                    a => a.Patente,
+                    a => a.Detalle,
+                    a => a.Estado,
+                    a => a.FechaCompra,
+                    a => a.ModeloID))
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("./Index");
+                }
+
+                cargarListaModeloNombre(_context, autoAModificar.ModeloID);
+                return Page();
+
             }
 
-            var autoAModificar = await _context.Autos.FindAsync(id);
-
-            if (autoAModificar == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-
-            if (await TryUpdateModelAsync<Auto>(
-                autoAModificar,
-                "Auto",
-                a => a.ID,
-                a => a.Kilometraje,
-                a => a.CapacidadTanque,
-                a => a.Patente,
-                a => a.Detalle,
-                a => a.Estado,
-                a => a.FechaCompra,
-                a => a.ModeloID))
-            {
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
-            }
-
-            cargarListaModeloNombre(_context, autoAModificar.ModeloID);
-            return Page();
         }
+
     }
 }

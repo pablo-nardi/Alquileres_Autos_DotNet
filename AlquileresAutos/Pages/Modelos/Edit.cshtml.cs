@@ -25,56 +25,71 @@ namespace AlquileresAutos.Pages.Modelos
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Modelos == null)
+            try
             {
-                return NotFound();
+                if (id == null || _context.Modelos == null)
+                {
+                    return NotFound();
+                }
+
+                Modelo = await _context.Modelos.FirstOrDefaultAsync(m => m.ID == id);
+
+                if (Modelo == null)
+                {
+                    return NotFound();
+                }
+
+                //ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
+                cargarListaNombreTipoAuto(_context, Modelo.TipoAutoID);
+                return Page();
             }
-
-            Modelo =  await _context.Modelos.FirstOrDefaultAsync(m => m.ID == id);
-
-            if (Modelo == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-
-            //ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
-            cargarListaNombreTipoAuto(_context, Modelo.TipoAutoID);
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-
-            if (id == null)
+            try
             {
-                return NotFound();
+                if (id == null)
+                {
+                    return NotFound();
+                }
+
+                var modeloActualizar = await _context.Modelos.FindAsync(id);
+
+                if (modeloActualizar == null)
+                {
+                    return NotFound();
+                }
+                if (await TryUpdateModelAsync<Modelo>(
+                     modeloActualizar,
+                     "Modelo",   // Prefix for form value.
+                        s => s.AireAcondicionado,
+                        s => s.CantEquipajeChico,
+                        s => s.CantEquipajeGrande,
+                        s => s.CantPasajeros,
+                        s => s.Denominacion,
+                        s => s.PrecioPorDia,
+                        s => s.Transmision,
+                        s => s.TipoAutoID))
+                {
+                    await _context.SaveChangesAsync();
+                    return RedirectToPage("./Index");
+                }
+
+                // Select DepartmentID if TryUpdateModelAsync fails.
+                cargarListaNombreTipoAuto(_context, modeloActualizar.TipoAutoID);
+                return Page();
             }
-
-            var modeloActualizar = await _context.Modelos.FindAsync(id);
-
-            if (modeloActualizar == null)
+            catch (Exception ex)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-            if (await TryUpdateModelAsync<Modelo>(
-                 modeloActualizar,
-                 "Modelo",   // Prefix for form value.
-                    s => s.AireAcondicionado,
-                    s => s.CantEquipajeChico,
-                    s => s.CantEquipajeGrande,
-                    s => s.CantPasajeros,
-                    s => s.Denominacion,
-                    s => s.PrecioPorDia,
-                    s => s.Transmision,
-                    s => s.TipoAutoID))
-            {
-                await _context.SaveChangesAsync();
-                return RedirectToPage("./Index");
-            }
-
-            // Select DepartmentID if TryUpdateModelAsync fails.
-            cargarListaNombreTipoAuto(_context, modeloActualizar.TipoAutoID);
-            return Page();
         }
     }
 }

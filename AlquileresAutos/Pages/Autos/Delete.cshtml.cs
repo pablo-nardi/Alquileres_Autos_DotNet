@@ -24,40 +24,56 @@ namespace AlquileresAutos.Pages.Autos
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Autos == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null || _context.Autos == null)
+                {
+                    return NotFound();
+                }
 
-            var auto = await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
+                var auto = await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
 
-            if (auto == null)
-            {
-                return NotFound();
+                if (auto == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Auto = auto;
+                }
+                return Page();
             }
-            else 
+            catch (Exception ex)
             {
-                Auto = auto;
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-            return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Autos == null)
+            try
             {
-                return NotFound();
-            }
-            var auto = await _context.Autos.FindAsync(id);
+                if (id == null || _context.Autos == null)
+                {
+                    return NotFound();
+                }
+                var auto = await _context.Autos.FindAsync(id);
 
-            if (auto != null)
+                if (auto != null)
+                {
+                    Auto = auto;
+                    _context.Autos.Remove(Auto);
+                    await _context.SaveChangesAsync();
+                }
+
+                return RedirectToPage("./Index");
+            }
+            catch (Exception ex)
             {
-                Auto = auto;
-                _context.Autos.Remove(Auto);
-                await _context.SaveChangesAsync();
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-
-            return RedirectToPage("./Index");
         }
     }
 }

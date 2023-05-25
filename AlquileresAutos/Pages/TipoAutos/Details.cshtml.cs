@@ -23,21 +23,29 @@ namespace AlquileresAutos.Pages.TipoAutos
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.TipoAutos == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null || _context.TipoAutos == null)
+                {
+                    return NotFound();
+                }
 
-            var tipoauto = await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
-            if (tipoauto == null)
-            {
-                return NotFound();
+                var tipoauto = await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
+                if (tipoauto == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    TipoAuto = tipoauto;
+                }
+                return Page();
             }
-            else 
+            catch (Exception ex)
             {
-                TipoAuto = tipoauto;
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-            return Page();
         }
     }
 }

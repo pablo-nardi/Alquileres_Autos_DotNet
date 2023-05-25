@@ -23,24 +23,32 @@ namespace AlquileresAutos.Pages.Modelos
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Modelos == null)
+            try
             {
-                return NotFound();
-            }
+                if (id == null || _context.Modelos == null)
+                {
+                    return NotFound();
+                }
 
-            var modelo = await _context.Modelos
-                                .AsNoTracking()
-                                .Include(t => t.tipoAuto)
-                                .FirstOrDefaultAsync(m => m.ID == id);
-            if (modelo == null)
-            {
-                return NotFound();
+                var modelo = await _context.Modelos
+                                    .AsNoTracking()
+                                    .Include(t => t.tipoAuto)
+                                    .FirstOrDefaultAsync(m => m.ID == id);
+                if (modelo == null)
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    Modelo = modelo;
+                }
+                return Page();
             }
-            else 
+            catch (Exception ex)
             {
-                Modelo = modelo;
+                TempData["ErrorMessage"] = ex.InnerException.Message;
+                return RedirectToPage("../Error");
             }
-            return Page();
         }
     }
 }
