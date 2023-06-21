@@ -26,6 +26,8 @@ namespace AlquileresAutos.Data
                 .HasIndex(e => e.Patente)
                 .IsUnique();
         }
+        public DbSet<AlquileresAutos.Models.Localidad> Localidad { get; set; }
+        public DbSet<AlquileresAutos.Models.Provincia> Provincia { get; set; }
 
     }
 }

@@ -1,0 +1,40 @@
+﻿@page
+@model AlquileresAutos.Pages.Localidades.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Localidad</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Localidad.ID" />
+            <div class="form-group">
+                <label asp-for="Localidad.Denominacion" class="control-label"></label>
+                <input asp-for="Localidad.Denominacion" class="form-control" />
+                <span asp-validation-for="Localidad.Denominacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Localidad.ProvinciaID" class="control-label"></label>
+                <select asp-for="Localidad.ProvinciaID" class="form-control" asp-items="ViewBag.ProvinciaID"></select>
+                <span asp-validation-for="Localidad.ProvinciaID" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

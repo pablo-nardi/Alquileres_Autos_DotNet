@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AlquileresAutos.Data;
 using AlquileresAutos.Models;
 
-namespace AlquileresAutos.Pages.TipoAutos
+namespace AlquileresAutos.Pages.Provincias
 {
     public class EditModel : PageModel
     {
@@ -21,23 +21,23 @@ namespace AlquileresAutos.Pages.TipoAutos
         }
 
         [BindProperty]
-        public TipoAuto TipoAuto { get; set; } = default!;
+        public Provincia Provincia { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             try
             {
-                if (id == null || _context.TipoAutos == null)
+                if (id == null || _context.Provincia == null)
                 {
                     return NotFound();
                 }
 
-                var tipoauto = await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
-                if (tipoauto == null)
+                var provincia = await _context.Provincia.FirstOrDefaultAsync(m => m.ID == id);
+                if (provincia == null)
                 {
                     return NotFound();
                 }
-                TipoAuto = tipoauto;
+                Provincia = provincia;
                 return Page();
             }
             catch (Exception ex)
@@ -58,7 +58,7 @@ namespace AlquileresAutos.Pages.TipoAutos
                     return Page();
                 }
 
-                _context.Attach(TipoAuto).State = EntityState.Modified;
+                _context.Attach(Provincia).State = EntityState.Modified;
 
                 try
                 {
@@ -66,7 +66,7 @@ namespace AlquileresAutos.Pages.TipoAutos
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TipoAutoExists(TipoAuto.ID))
+                    if (!ProvinciaExists(Provincia.ID))
                     {
                         return NotFound();
                     }
@@ -85,9 +85,9 @@ namespace AlquileresAutos.Pages.TipoAutos
             }
         }
 
-        private bool TipoAutoExists(int id)
+        private bool ProvinciaExists(int id)
         {
-          return _context.TipoAutos.Any(e => e.ID == id);
+          return _context.Provincia.Any(e => e.ID == id);
         }
     }
 }

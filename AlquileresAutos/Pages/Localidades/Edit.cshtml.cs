@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using AlquileresAutos.Data;
 using AlquileresAutos.Models;
 
-namespace AlquileresAutos.Pages.TipoAutos
+namespace AlquileresAutos.Pages.Localidades
 {
     public class EditModel : PageModel
     {
@@ -21,23 +21,24 @@ namespace AlquileresAutos.Pages.TipoAutos
         }
 
         [BindProperty]
-        public TipoAuto TipoAuto { get; set; } = default!;
+        public Localidad Localidad { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
             try
             {
-                if (id == null || _context.TipoAutos == null)
+                if (id == null || _context.Localidad == null)
                 {
                     return NotFound();
                 }
 
-                var tipoauto = await _context.TipoAutos.FirstOrDefaultAsync(m => m.ID == id);
-                if (tipoauto == null)
+                var localidad = await _context.Localidad.FirstOrDefaultAsync(m => m.ID == id);
+                if (localidad == null)
                 {
                     return NotFound();
                 }
-                TipoAuto = tipoauto;
+                Localidad = localidad;
+                ViewData["ProvinciaID"] = new SelectList(_context.Provincia, "ID", "Denominacion");
                 return Page();
             }
             catch (Exception ex)
@@ -58,7 +59,7 @@ namespace AlquileresAutos.Pages.TipoAutos
                     return Page();
                 }
 
-                _context.Attach(TipoAuto).State = EntityState.Modified;
+                _context.Attach(Localidad).State = EntityState.Modified;
 
                 try
                 {
@@ -66,7 +67,7 @@ namespace AlquileresAutos.Pages.TipoAutos
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TipoAutoExists(TipoAuto.ID))
+                    if (!LocalidadExists(Localidad.ID))
                     {
                         return NotFound();
                     }
@@ -85,9 +86,9 @@ namespace AlquileresAutos.Pages.TipoAutos
             }
         }
 
-        private bool TipoAutoExists(int id)
+        private bool LocalidadExists(int id)
         {
-          return _context.TipoAutos.Any(e => e.ID == id);
+          return _context.Localidad.Any(e => e.ID == id);
         }
     }
 }
