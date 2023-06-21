@@ -32,6 +32,7 @@ namespace AlquileresAutos.Models
         [Required]
         [Display(Name = "Tipo de Auto")]
         public TipoAuto tipoAuto {get; set;}
+        public ICollection<Auto> Autos { get; set;}
 
     }
 }

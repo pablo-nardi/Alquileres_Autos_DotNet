@@ -4,6 +4,7 @@ using AlquileresAutos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlquileresAutos.Migrations
 {
     [DbContext(typeof(AlquileresAutosContext))]
-    partial class AlquileresAutosContextModelSnapshot : ModelSnapshot
+    [Migration("20230526155509_cambioRestriccionFKLocProv")]
+    partial class cambioRestriccionFKLocProv
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,17 +56,12 @@ namespace AlquileresAutos.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("SucursalID")
-                        .HasColumnType("int");
-
                     b.HasKey("ID");
 
                     b.HasIndex("ModeloID");
 
                     b.HasIndex("Patente")
                         .IsUnique();
-
-                    b.HasIndex("SucursalID");
 
                     b.ToTable("Auto", (string)null);
                 });
@@ -152,42 +150,6 @@ namespace AlquileresAutos.Migrations
                     b.ToTable("Provincia");
                 });
 
-            modelBuilder.Entity("AlquileresAutos.Models.Sucursal", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
-
-                    b.Property<string>("Denominacion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Direccion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HoraApertura")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("HoraCierre")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("LocalidadID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Mail")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("LocalidadID");
-
-                    b.ToTable("Sucursal");
-                });
-
             modelBuilder.Entity("AlquileresAutos.Models.TipoAuto", b =>
                 {
                     b.Property<int>("ID")
@@ -208,20 +170,12 @@ namespace AlquileresAutos.Migrations
             modelBuilder.Entity("AlquileresAutos.Models.Auto", b =>
                 {
                     b.HasOne("AlquileresAutos.Models.Modelo", "Modelo")
-                        .WithMany("Autos")
+                        .WithMany()
                         .HasForeignKey("ModeloID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AlquileresAutos.Models.Sucursal", "Sucursal")
-                        .WithMany("Autos")
-                        .HasForeignKey("SucursalID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Modelo");
-
-                    b.Navigation("Sucursal");
                 });
 
             modelBuilder.Entity("AlquileresAutos.Models.Localidad", b =>
@@ -238,7 +192,7 @@ namespace AlquileresAutos.Migrations
             modelBuilder.Entity("AlquileresAutos.Models.Modelo", b =>
                 {
                     b.HasOne("AlquileresAutos.Models.TipoAuto", "tipoAuto")
-                        .WithMany("Modelos")
+                        .WithMany()
                         .HasForeignKey("TipoAutoID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -246,40 +200,9 @@ namespace AlquileresAutos.Migrations
                     b.Navigation("tipoAuto");
                 });
 
-            modelBuilder.Entity("AlquileresAutos.Models.Sucursal", b =>
-                {
-                    b.HasOne("AlquileresAutos.Models.Localidad", "Localidad")
-                        .WithMany("Sucursales")
-                        .HasForeignKey("LocalidadID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Localidad");
-                });
-
-            modelBuilder.Entity("AlquileresAutos.Models.Localidad", b =>
-                {
-                    b.Navigation("Sucursales");
-                });
-
-            modelBuilder.Entity("AlquileresAutos.Models.Modelo", b =>
-                {
-                    b.Navigation("Autos");
-                });
-
             modelBuilder.Entity("AlquileresAutos.Models.Provincia", b =>
                 {
                     b.Navigation("Localidades");
-                });
-
-            modelBuilder.Entity("AlquileresAutos.Models.Sucursal", b =>
-                {
-                    b.Navigation("Autos");
-                });
-
-            modelBuilder.Entity("AlquileresAutos.Models.TipoAuto", b =>
-                {
-                    b.Navigation("Modelos");
                 });
 #pragma warning restore 612, 618
         }

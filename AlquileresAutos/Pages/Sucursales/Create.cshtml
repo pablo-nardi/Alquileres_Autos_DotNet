@@ -1,0 +1,73 @@
+﻿@page
+@model AlquileresAutos.Pages.Sucursales.CreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>Sucursal</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Sucursal.Denominacion" class="control-label"></label>
+                <input asp-for="Sucursal.Denominacion" class="form-control" />
+                <span asp-validation-for="Sucursal.Denominacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sucursal.Direccion" class="control-label"></label>
+                <input asp-for="Sucursal.Direccion" class="form-control" />
+                <span asp-validation-for="Sucursal.Direccion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sucursal.Telefono" class="control-label"></label>
+                <input asp-for="Sucursal.Telefono" class="form-control" />
+                <span asp-validation-for="Sucursal.Telefono" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sucursal.Mail" class="control-label"></label>
+                <input asp-for="Sucursal.Mail" class="form-control" />
+                <span asp-validation-for="Sucursal.Mail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sucursal.HoraApertura" class="control-label"></label>
+                <select asp-for="Sucursal.HoraApertura" class="form-control">
+                    @for(int i  = 1 ; i <= 24; i++)
+                    {
+                        <option value="@i:00">@i:00</option>
+                    }
+                </select>
+                <span asp-validation-for="Sucursal.HoraApertura" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sucursal.HoraCierre" class="control-label"></label>
+                <select asp-for="Sucursal.HoraCierre" class="form-control" >
+                    @for(int i = 1; i <= 24 ; i++)
+                    {
+                        <option value="@i:00" >@i:00</option>
+                    }
+                </select>
+                <span asp-validation-for="Sucursal.HoraCierre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sucursal.LocalidadID" class="control-label"></label>
+                <select asp-for="Sucursal.LocalidadID" class ="form-control" asp-items="ViewBag.LocalidadID"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

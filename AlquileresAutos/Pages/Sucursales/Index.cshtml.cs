@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using AlquileresAutos.Data;
 using AlquileresAutos.Models;
 
-namespace AlquileresAutos.Pages.Autos
+namespace AlquileresAutos.Pages.Sucursales
 {
     public class IndexModel : PageModel
     {
@@ -19,16 +19,14 @@ namespace AlquileresAutos.Pages.Autos
             _context = context;
         }
 
-        public IList<Auto> Auto { get;set; } = default!;
+        public IList<Sucursal> Sucursal { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Autos != null)
+            if (_context.Sucursal != null)
             {
-                Auto = await _context.Autos
-                .Include(a => a.Modelo)
-                .Include(s => s.Sucursal)
-                .AsNoTracking().ToListAsync();
+                    Sucursal = await _context.Sucursal
+                    .Include(s => s.Localidad).ToListAsync();   
             }
         }
     }

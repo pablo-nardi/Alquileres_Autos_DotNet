@@ -20,7 +20,7 @@ namespace AlquileresAutos.Pages.Autos
         }
 
         [BindProperty]
-      public Auto Auto { get; set; }
+        public Auto Auto { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,16 +31,16 @@ namespace AlquileresAutos.Pages.Autos
                     return NotFound();
                 }
 
-                var auto = await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
+                Auto = await _context.Autos
+                    .Include(s => s.Sucursal)
+                    .Include(m => m.Modelo)
+                    .FirstOrDefaultAsync(a => a.ID == id);
 
-                if (auto == null)
+                if (Auto == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    Auto = auto;
-                }
+
                 return Page();
             }
             catch (Exception ex)
@@ -58,11 +58,11 @@ namespace AlquileresAutos.Pages.Autos
                 {
                     return NotFound();
                 }
-                var auto = await _context.Autos.FindAsync(id);
 
-                if (auto != null)
+                Auto = await _context.Autos.FindAsync(id);
+
+                if (Auto != null)
                 {
-                    Auto = auto;
                     _context.Autos.Remove(Auto);
                     await _context.SaveChangesAsync();
                 }

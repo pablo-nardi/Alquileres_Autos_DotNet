@@ -28,6 +28,7 @@ namespace AlquileresAutos.Data
         }
         public DbSet<AlquileresAutos.Models.Localidad> Localidad { get; set; }
         public DbSet<AlquileresAutos.Models.Provincia> Provincia { get; set; }
+        public DbSet<AlquileresAutos.Models.Sucursal> Sucursal { get; set; }
 
     }
 }

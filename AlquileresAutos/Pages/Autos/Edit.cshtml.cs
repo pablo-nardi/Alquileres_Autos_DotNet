@@ -8,13 +8,17 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlquileresAutos.Data;
 using AlquileresAutos.Models;
+using System.Globalization;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlquileresAutos.Pages.Autos
 {
     public class EditModel : ModeloNombrePageModel
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
-
+        [Display(Name ="Fecha de Compra")]
+        public string Fechastr;
         public EditModel(AlquileresAutos.Data.AlquileresAutosContext context)
         {
             _context = context;
@@ -33,15 +37,21 @@ namespace AlquileresAutos.Pages.Autos
                     return NotFound();
                 }
 
-                Auto = await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
+                Auto = await _context.Autos
+                    .FirstOrDefaultAsync(m => m.ID == id);
 
                 if (Auto == null)
                 {
                     return NotFound();
                 }
 
-                //ViewData["ModeloID"] = new SelectList(_context.Modelos, "ID", "ID");
-                cargarListaModeloNombre(_context, Auto.ModeloID);
+                cargarListaModeloNombre(_context, Auto.ModeloID, Auto.SucursalID);
+
+                Fechastr = Auto.FechaCompra.ToString("yyyy-MM-dd");
+
+                //Auto.FechaCompra = DateTime.ParseExact(Fechastr, "yyyy-MM-dd", CultureInfo.InvariantCulture);                
+
+
                 return Page();
             }
             catch (Exception ex)

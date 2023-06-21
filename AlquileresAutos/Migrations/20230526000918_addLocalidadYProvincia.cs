@@ -40,7 +40,7 @@ namespace AlquileresAutos.Migrations
                         column: x => x.ProvinciaID,
                         principalTable: "Provincia",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.NoAction);
                 });
 
             migrationBuilder.CreateIndex(

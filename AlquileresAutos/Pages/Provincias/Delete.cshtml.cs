@@ -7,20 +7,25 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AlquileresAutos.Data;
 using AlquileresAutos.Models;
+using AlquileresAutos.Services;
 
 namespace AlquileresAutos.Pages.Provincias
 {
     public class DeleteModel : PageModel
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
+        public ProvinciaService ProvinciaService { get; set; }
 
         public DeleteModel(AlquileresAutos.Data.AlquileresAutosContext context)
         {
             _context = context;
+            ProvinciaService = new ProvinciaService();
         }
 
         [BindProperty]
         public Provincia Provincia { get; set; }
+
+        public int valor;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -31,7 +36,9 @@ namespace AlquileresAutos.Pages.Provincias
                     return NotFound();
                 }
 
-                var provincia = await _context.Provincia.FirstOrDefaultAsync(m => m.ID == id);
+                var provincia = await _context.Provincia
+                    .Include(l => l.Localidades)
+                    .FirstOrDefaultAsync(p => p.ID == id);
 
                 if (provincia == null)
                 {
@@ -58,13 +65,24 @@ namespace AlquileresAutos.Pages.Provincias
                 {
                     return NotFound();
                 }
-                var provincia = await _context.Provincia.FindAsync(id);
+
+                var provincia = await _context.Provincia
+                                .Include(l => l.Localidades)
+                                .FirstOrDefaultAsync(p => p.ID == id);
 
                 if (provincia != null)
                 {
-                    Provincia = provincia;
-                    _context.Provincia.Remove(Provincia);
-                    await _context.SaveChangesAsync();
+                    if (ProvinciaService.HayLocalidadesAsociadas(provincia))
+                    {
+                        Provincia = provincia;
+                        _context.Provincia.Remove(Provincia);
+                        await _context.SaveChangesAsync();
+                    }
+                    else
+                    {
+                        TempData["ErrorMessage"] = $"No se puede Eliminar la Provincia {provincia.Denominacion}  porque tiene localidades asociadas";
+                        return RedirectToPage("../Error");
+                    }
                 }
 
                 return RedirectToPage("./Index");

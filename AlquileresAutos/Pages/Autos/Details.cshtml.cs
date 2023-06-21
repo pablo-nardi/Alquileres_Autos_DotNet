@@ -19,7 +19,7 @@ namespace AlquileresAutos.Pages.Autos
             _context = context;
         }
 
-      public Auto Auto { get; set; }
+        public Auto Auto { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -30,15 +30,16 @@ namespace AlquileresAutos.Pages.Autos
                     return NotFound();
                 }
 
-                var auto = await _context.Autos.FirstOrDefaultAsync(m => m.ID == id);
-                if (auto == null)
+                Auto = await _context.Autos
+                    .Include(m => m.Modelo)
+                    .Include(s => s.Sucursal)
+                    .FirstOrDefaultAsync(a => a.ID == id);
+
+                if (Auto == null)
                 {
                     return NotFound();
                 }
-                else
-                {
-                    Auto = auto;
-                }
+                
                 return Page();
             }
             catch (Exception ex)

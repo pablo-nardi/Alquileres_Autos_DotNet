@@ -9,5 +9,6 @@ namespace AlquileresAutos.Models
         [Required]
         [Display(Name = "Tipo de Auto")]
         public string NombreTipo { get; set; }
+        public ICollection<Modelo> Modelos { get; set; }
     }
 }

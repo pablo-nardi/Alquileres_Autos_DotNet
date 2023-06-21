@@ -12,48 +12,63 @@
     <h4>Auto</h4>
     <hr />
     <dl class="row">
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Auto.Patente)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Auto.Patente)
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Auto.CapacidadTanque)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Auto.CapacidadTanque)
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Auto.Kilometraje)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Auto.Kilometraje)
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Auto.FechaCompra)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Auto.FechaCompra)
         </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Auto.Detalle)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Auto.Detalle)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Auto.Modelo)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Auto.Modelo.ID)
-        </dd>
+
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Auto.Estado)
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Auto.Estado)
         </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Auto.Modelo)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Auto.Modelo.Denominacion)
+        </dd>
+
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Auto.Sucursal)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Auto.Sucursal.Denominacion)
+        </dd>
+
     </dl>
     
     <form method="post">

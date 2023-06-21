@@ -27,11 +27,13 @@ namespace AlquileresAutos.Models
         [Required]
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de Compra")]
-        public DateTime FechaCompra { get; set; } //
+        public DateTime FechaCompra { get; set; }
         public string Detalle { get; set; }
         [Required]
         public int ModeloID { get; set; }
         public Modelo Modelo { get; set; }
         public Estado Estado { get; set; }
+        public int SucursalID { get; set; }
+        public Sucursal Sucursal { get; set; }
     }
 }

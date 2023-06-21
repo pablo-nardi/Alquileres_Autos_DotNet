@@ -11,5 +11,6 @@ namespace AlquileresAutos.Models
         [Required]
         public int ProvinciaID { get; set; }
         public Provincia Provincia { get; set; }
+        public ICollection<Sucursal> Sucursales { get; set; }
     }
 }

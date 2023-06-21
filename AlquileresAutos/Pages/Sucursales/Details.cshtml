@@ -1,0 +1,61 @@
+﻿@page
+@model AlquileresAutos.Pages.Sucursales.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Sucursal</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sucursal.Denominacion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sucursal.Denominacion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sucursal.Direccion)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sucursal.Direccion)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sucursal.Telefono)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sucursal.Telefono)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sucursal.Mail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sucursal.Mail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sucursal.HoraApertura)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sucursal.HoraApertura)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sucursal.HoraCierre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sucursal.HoraCierre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Sucursal.Localidad)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Sucursal.Localidad.Denominacion)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Sucursal?.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
