@@ -29,7 +29,6 @@ namespace AlquileresAutos.Models
         [Display(Name = "Aire Acondicionado")]
         public string AireAcondicionado { get; set; }
         public int? TipoAutoID { get; set; }
-        [Required]
         [Display(Name = "Tipo de Auto")]
         public TipoAuto tipoAuto {get; set;}
         public ICollection<Auto> Autos { get; set;}

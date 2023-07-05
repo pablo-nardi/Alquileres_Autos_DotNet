@@ -5,68 +5,48 @@
 }
 
 <div class="row mb-auto">
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 mb-4 ">
-                <p class="card-text">
-                    Link a <a href="https://learn.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-7.0&tabs=visual-studio">Tutorial</a>
-                </p>
+    <form method="post">
+        <div class="col-md-4">
+            <div class="row no-gutters border mb-4">
+                <div class="col p-4 mb-4 ">
+                    <label asp-for="LocalidadSearch" class="control-label">Elija la provincia deseada</label>
+                    <input type="search" asp-for="LocalidadSearch" class="form-control" />
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 d-flex flex-column position-static">
-                <p class="card-text mb-auto">
-                    Link a proyecto en java <a href="https://github.com/pablo-nardi/Alquileres_Autos"> Alquileres Autos </a>
-                </p>
-                <p>
-                    @*                    <a href="https://docs.microsoft.com/aspnet/core/data/ef-rp/intro" class="stretched-link">See the tutorial</a>
-                    *@
-                </p>
+        <div class="col-md-4">
+            <div class="row no-gutters border mb-4">
+                <div class="col p-4 mb-4 ">
+                    <input type="submit" class="form-control" />
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 d-flex flex-column">
-                <p class="card-text mb-auto">
-                    Link al repo de <a href="https://github.com/pablo-nardi/Alquileres_Autos_DotNet.git"> .net </a>
-                </p>
-                <p>
-                    @*                    <a href="https://github.com/dotnet/AspNetCore.Docs/tree/main/aspnetcore/data/ef-rp/intro/samples" class="stretched-link">See project source code</a>
-                    *@
-                </p>
+        <div class="col-md-4">
+            <div class="row no-gutters border mb-4">
+                <div class="col p-4 mb-4 ">
+                    <p class="card-text mb-auto">
+                        BOTON BUSCAR
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-<div class="row mb-auto" >
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 d-flex flex-column">
-                <p class="card-text mb-auto">
-                    EF Core Tutorial <a href="https://www.entityframeworktutorial.net/"> link </a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 d-flex flex-column">
-                <p class="card-text mb-auto">
-                    Migration Tutorial <a href="https://www.entityframeworktutorial.net/efcore/entity-framework-core-migration.aspx"> link </a>
-                </p>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
-        <div class="row no-gutters border mb-4">
-            <div class="col p-4 d-flex flex-column">
-                <p class="card-text mb-auto">
-                    Comentarios en el codigo <a href="https://elcamino.dev/comentarios-en-c/#:~:text=Para%20Comentar%3A%20Debes%20seleccionar%20una,Ctrl%20presionada%20todo%20el%20tiempo">link</a>
-                </p>
-            </div>
-        </div>
-    </div>
-</div>
+
+@if(Model.Autos is not null)
+{
+    <h3>Autos Disponible para la zona seleccionada</h3>
+        <table class="table">
+            <tr>
+                <th>Nombre</th>
+            </tr>
+        @foreach (var item in Model.Autos)
+        {
+                    <tr>
+                        <td>
+                            @item.Patente
+                        </td>
+                    </tr>
+        }
+        </table>
+}

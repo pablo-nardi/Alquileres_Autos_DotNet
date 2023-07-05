@@ -18,7 +18,7 @@ namespace AlquileresAutos.Pages.Modelos
         {
             _context = context;
         }
-
+        
         public IActionResult OnGet()
         {
             // ViewData["TipoAutoID"] = new SelectList(_context.TipoAutos, "ID", "ID");
@@ -29,34 +29,15 @@ namespace AlquileresAutos.Pages.Modelos
         [BindProperty]
         public Modelo Modelo { get; set; }
         
-
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
             try
             {
-                var emptyModelos = new Modelo();
+                _context.Modelos.Add(Modelo);
+                await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
 
-                if (await TryUpdateModelAsync<Modelo>(emptyModelos,
-                                                        "Modelo",
-                                                        s => s.AireAcondicionado,
-                                                        s => s.CantEquipajeChico,
-                                                        s => s.CantEquipajeGrande,
-                                                        s => s.CantPasajeros,
-                                                        s => s.ID,
-                                                        s => s.Denominacion,
-                                                        s => s.PrecioPorDia,
-                                                        s => s.Transmision,
-                                                        s => s.TipoAutoID
-                                                        ))
-                {
-                    _context.Modelos.Add(Modelo);
-                    await _context.SaveChangesAsync();
-                    return RedirectToPage("./Index");
-                }
-
-                cargarListaNombreTipoAuto(_context, emptyModelos.TipoAutoID);
-                return Page();
             }
             catch (Exception ex)
             {

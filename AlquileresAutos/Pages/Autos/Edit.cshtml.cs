@@ -89,7 +89,8 @@ namespace AlquileresAutos.Pages.Autos
                     a => a.Detalle,
                     a => a.Estado,
                     a => a.FechaCompra,
-                    a => a.ModeloID))
+                    a => a.ModeloID,
+                    a => a.SucursalID))
                 {
                     await _context.SaveChangesAsync();
                     return RedirectToPage("./Index");

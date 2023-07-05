@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using AlquileresAutos.Data;
 using AlquileresAutos.Models;
+using Microsoft.Extensions.Options;
 
 namespace AlquileresAutos.Pages.Modelos
 {
@@ -22,6 +23,7 @@ namespace AlquileresAutos.Pages.Modelos
 
         [BindProperty]
         public Modelo Modelo { get; set; } = default!;
+        public string valor { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -80,8 +82,13 @@ namespace AlquileresAutos.Pages.Modelos
                     await _context.SaveChangesAsync();
                     return RedirectToPage("./Index");
                 }
+                if (!ModelState.IsValid)
+                {
+                    var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                                   .Select(e => e.ErrorMessage);
+                    throw new Exception(string.Join(", ", errors));
+                }
 
-                // Select DepartmentID if TryUpdateModelAsync fails.
                 cargarListaNombreTipoAuto(_context, modeloActualizar.TipoAutoID);
                 return Page();
             }
