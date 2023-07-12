@@ -9,7 +9,7 @@
         <div class="col-md-4">
             <div class="row no-gutters border mb-4">
                 <div class="col p-4 mb-4 ">
-                    <label asp-for="LocalidadSearch" class="control-label">Elija la provincia deseada</label>
+                    <label asp-for="LocalidadSearch" class="control-label">Lugar de Retiro</label>
                     <input type="search" asp-for="LocalidadSearch" class="form-control" />
                 </div>
             </div>
@@ -21,32 +21,40 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="row no-gutters border mb-4">
-                <div class="col p-4 mb-4 ">
-                    <p class="card-text mb-auto">
-                        BOTON BUSCAR
-                    </p>
-                </div>
-            </div>
-        </div>
     </form>
 </div>
 
 @if(Model.Autos is not null)
 {
-    <h3>Autos Disponible para la zona seleccionada</h3>
-        <table class="table">
-            <tr>
-                <th>Nombre</th>
-            </tr>
-        @foreach (var item in Model.Autos)
-        {
-                    <tr>
-                        <td>
-                            @item.Patente
-                        </td>
-                    </tr>
-        }
-        </table>
+<h3>Autos Disponible</h3>
+<table class="table">
+    <tr>
+        <th>Nombre</th> 
+        <th>Tanque</th>
+        <th>Equip. chico</th>
+        <th>Equip. Grande</th>
+        <th>Pasajeros</th>
+    </tr>
+@foreach (var item in Model.Autos)
+{
+    <tr>
+        <td>
+            @item.Modelo.Denominacion
+            @item.Modelo.AireAcondicionado
+        </td>
+        <td>
+            @item.CapacidadTanque
+        </td>
+        <td>
+            @item.Modelo.CantEquipajeChico
+        </td>
+        <td>
+            @item.Modelo.CantEquipajeGrande
+        </td>
+        <td>
+                @item.Modelo.CantPasajeros
+        </td>
+    </tr>
+}
+</table>
 }

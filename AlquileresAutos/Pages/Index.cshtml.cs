@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using AlquileresAutos.Models;
+using AlquileresAutos.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContosoUniversity.Pages
@@ -9,30 +10,25 @@ namespace ContosoUniversity.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
+        [BindProperty]
         public string LocalidadSearch { get; set; }
         public IList<Auto> Autos { get; set; }
-        public IndexModel(ILogger<IndexModel> logger, AlquileresAutos.Data.AlquileresAutosContext context)
+        public GetAutosLocalidad _GetAutosLocalidad { get; set; }
+        public IndexModel(  ILogger<IndexModel> logger, 
+                            AlquileresAutos.Data.AlquileresAutosContext context
+                            
+                           )
         {
             _logger = logger;
             _context = context;
-        }
-
-        public void OnGet()
-        {
-
+            _GetAutosLocalidad = new GetAutosLocalidad(_context);
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             try
             {
-                LocalidadSearch = "ros";
-                Autos = await _context.Autos
-               .Include(a => a.Modelo)
-               .Include(a => a.Sucursal)
-               .Where(a => a.Sucursal.Localidad.Denominacion.ToUpper().Contains(LocalidadSearch.ToUpper()))
-               .AsNoTracking().ToListAsync();
-
+                Autos = await _GetAutosLocalidad.GetAutos(LocalidadSearch);
                 return Page();
             }
             catch(Exception ex)
