@@ -6,19 +6,26 @@ namespace AlquileresAutos.Data
     {
         public static void Initialize(AlquileresAutosContext context)
         {
-            if (context.Autos.Any()){
-                return;
-            }
-
-            var autos = new Auto[]
+            if (!context.Autos.Any() ) 
             {
-                new Auto{ Patente="AE851AR", CapacidadTanque=54, Kilometraje=100, FechaCompra=DateTime.Parse("10/07/2021"), Detalle="Auto nuevo" },
-                new Auto{ Patente="RC855AR", CapacidadTanque=54, Kilometraje=1000, FechaCompra=DateTime.Parse("10/07/2020"), Detalle="Auto nuevo" }
-            };
+                var autos = new Auto[]
+                {
+                    new Auto{ Patente="AE851AR", CapacidadTanque=54, Kilometraje=100, FechaCompra=DateTime.Parse("10/07/2021"), Detalle="Auto nuevo" },
+                    new Auto{ Patente="RC855AR", CapacidadTanque=54, Kilometraje=1000, FechaCompra=DateTime.Parse("10/07/2020"), Detalle="Auto nuevo" }
+                };
+                context.Autos.AddRange(autos);
+                context.SaveChanges();
 
-            context.Autos.AddRange(autos);
-            context.SaveChanges();
-
+            }
+            if (!context.MediosDePagos.Any())
+            {
+                var medioDePago = new MedioDePago[]
+                {
+                    new MedioDePago{nombreMedioDePago = "Pago ahora 12", descripcionMedioDePago="Probando seed de datos"}
+                };
+                context.MediosDePagos.AddRange(medioDePago);
+                context.SaveChanges();
+            }            
         }
     }
 }

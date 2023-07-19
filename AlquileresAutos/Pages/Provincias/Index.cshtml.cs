@@ -34,7 +34,6 @@ namespace AlquileresAutos.Pages.Provincias
 
             if (id != null)
             {
-                
                 Provincia Provincia = Provincias
                     .Where(i => i.ID == id.Value).Single();
                 Localidades = Provincia.Localidades;

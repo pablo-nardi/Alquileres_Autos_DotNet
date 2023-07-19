@@ -4,6 +4,7 @@ using AlquileresAutos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlquileresAutos.Migrations
 {
     [DbContext(typeof(AlquileresAutosContext))]
-    partial class AlquileresAutosContextModelSnapshot : ModelSnapshot
+    [Migration("20230719023314_AgregadoDeClases")]
+    partial class AgregadoDeClases
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,102 +24,6 @@ namespace AlquileresAutos.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("AlquileresAutos.Models.Alquiler", b =>
-                {
-                    b.Property<int>("AlquilerID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AlquilerID"));
-
-                    b.Property<int?>("AutoID")
-                        .HasColumnType("int");
-
-                    b.Property<float>("CostoPorDaños")
-                        .HasColumnType("real");
-
-                    b.Property<float>("CostoPorDevolucionTardia")
-                        .HasColumnType("real");
-
-                    b.Property<int?>("EntidadCrediticiaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Estado")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("FechaHoraDevolucionPrevista")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaHoraDevolucionReal")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaHoraRetiroPrevista")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("FechaHoraRetiroReal")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("IDAuto")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDEntidadCrediticia")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDMedioDePago")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDModelo")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDPlanDePago")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDSucursal")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDTipoAuto")
-                        .HasColumnType("int");
-
-                    b.Property<float>("ImporteAcordadoConCliente")
-                        .HasColumnType("real");
-
-                    b.Property<int?>("MedioDePagoID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ModeloID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("PlanDePagoID")
-                        .HasColumnType("int");
-
-                    b.Property<float>("PrecioDiario")
-                        .HasColumnType("real");
-
-                    b.Property<int?>("SucursalID")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TipoAutoID")
-                        .HasColumnType("int");
-
-                    b.HasKey("AlquilerID");
-
-                    b.HasIndex("AutoID");
-
-                    b.HasIndex("EntidadCrediticiaID");
-
-                    b.HasIndex("MedioDePagoID");
-
-                    b.HasIndex("ModeloID");
-
-                    b.HasIndex("PlanDePagoID");
-
-                    b.HasIndex("SucursalID");
-
-                    b.HasIndex("TipoAutoID");
-
-                    b.ToTable("Alquileres");
-                });
 
             modelBuilder.Entity("AlquileresAutos.Models.Auto", b =>
                 {
@@ -164,27 +71,6 @@ namespace AlquileresAutos.Migrations
                     b.ToTable("Auto", (string)null);
                 });
 
-            modelBuilder.Entity("AlquileresAutos.Models.EntidadCrediticia", b =>
-                {
-                    b.Property<int>("EntidadCrediticiaID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EntidadCrediticiaID"));
-
-                    b.Property<string>("descripcionEntidadCrediticia")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nombreEntidadCrediticia")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("EntidadCrediticiaID");
-
-                    b.ToTable("EntidadesCrediticias");
-                });
-
             modelBuilder.Entity("AlquileresAutos.Models.Localidad", b =>
                 {
                     b.Property<int>("ID")
@@ -206,27 +92,6 @@ namespace AlquileresAutos.Migrations
                     b.HasIndex("ProvinciaID");
 
                     b.ToTable("Localidad");
-                });
-
-            modelBuilder.Entity("AlquileresAutos.Models.MedioDePago", b =>
-                {
-                    b.Property<int>("MedioDePagoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MedioDePagoID"));
-
-                    b.Property<string>("descripcionMedioDePago")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nombreMedioDePago")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("MedioDePagoID");
-
-                    b.ToTable("MediosDePagos");
                 });
 
             modelBuilder.Entity("AlquileresAutos.Models.Modelo", b =>
@@ -269,43 +134,6 @@ namespace AlquileresAutos.Migrations
                     b.HasIndex("TipoAutoID");
 
                     b.ToTable("Modelo", (string)null);
-                });
-
-            modelBuilder.Entity("AlquileresAutos.Models.PlanDePago", b =>
-                {
-                    b.Property<int>("PlanDePagoID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PlanDePagoID"));
-
-                    b.Property<string>("DescripcionPlanDePago")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("EntidadCrediticiaID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDEntidadCrediticia")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IDMedioDePago")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("MedioDePagoID")
-                        .HasColumnType("int");
-
-                    b.Property<string>("NombrePlanDePago")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("PlanDePagoID");
-
-                    b.HasIndex("EntidadCrediticiaID");
-
-                    b.HasIndex("MedioDePagoID");
-
-                    b.ToTable("PlanesDePagos");
                 });
 
             modelBuilder.Entity("AlquileresAutos.Models.Provincia", b =>
@@ -379,51 +207,6 @@ namespace AlquileresAutos.Migrations
                     b.ToTable("TipoAuto", (string)null);
                 });
 
-            modelBuilder.Entity("AlquileresAutos.Models.Alquiler", b =>
-                {
-                    b.HasOne("AlquileresAutos.Models.Auto", "Auto")
-                        .WithMany()
-                        .HasForeignKey("AutoID");
-
-                    b.HasOne("AlquileresAutos.Models.EntidadCrediticia", "EntidadCrediticia")
-                        .WithMany()
-                        .HasForeignKey("EntidadCrediticiaID");
-
-                    b.HasOne("AlquileresAutos.Models.MedioDePago", "MedioDePago")
-                        .WithMany()
-                        .HasForeignKey("MedioDePagoID");
-
-                    b.HasOne("AlquileresAutos.Models.Modelo", "Modelo")
-                        .WithMany()
-                        .HasForeignKey("ModeloID");
-
-                    b.HasOne("AlquileresAutos.Models.PlanDePago", "PlanDePago")
-                        .WithMany()
-                        .HasForeignKey("PlanDePagoID");
-
-                    b.HasOne("AlquileresAutos.Models.Sucursal", "Sucursal")
-                        .WithMany()
-                        .HasForeignKey("SucursalID");
-
-                    b.HasOne("AlquileresAutos.Models.TipoAuto", "TipoAuto")
-                        .WithMany()
-                        .HasForeignKey("TipoAutoID");
-
-                    b.Navigation("Auto");
-
-                    b.Navigation("EntidadCrediticia");
-
-                    b.Navigation("MedioDePago");
-
-                    b.Navigation("Modelo");
-
-                    b.Navigation("PlanDePago");
-
-                    b.Navigation("Sucursal");
-
-                    b.Navigation("TipoAuto");
-                });
-
             modelBuilder.Entity("AlquileresAutos.Models.Auto", b =>
                 {
                     b.HasOne("AlquileresAutos.Models.Modelo", "Modelo")
@@ -463,21 +246,6 @@ namespace AlquileresAutos.Migrations
                     b.Navigation("tipoAuto");
                 });
 
-            modelBuilder.Entity("AlquileresAutos.Models.PlanDePago", b =>
-                {
-                    b.HasOne("AlquileresAutos.Models.EntidadCrediticia", "EntidadCrediticia")
-                        .WithMany("PlanesDePago")
-                        .HasForeignKey("EntidadCrediticiaID");
-
-                    b.HasOne("AlquileresAutos.Models.MedioDePago", "MedioDePago")
-                        .WithMany("PlanesDePago")
-                        .HasForeignKey("MedioDePagoID");
-
-                    b.Navigation("EntidadCrediticia");
-
-                    b.Navigation("MedioDePago");
-                });
-
             modelBuilder.Entity("AlquileresAutos.Models.Sucursal", b =>
                 {
                     b.HasOne("AlquileresAutos.Models.Localidad", "Localidad")
@@ -489,19 +257,9 @@ namespace AlquileresAutos.Migrations
                     b.Navigation("Localidad");
                 });
 
-            modelBuilder.Entity("AlquileresAutos.Models.EntidadCrediticia", b =>
-                {
-                    b.Navigation("PlanesDePago");
-                });
-
             modelBuilder.Entity("AlquileresAutos.Models.Localidad", b =>
                 {
                     b.Navigation("Sucursales");
-                });
-
-            modelBuilder.Entity("AlquileresAutos.Models.MedioDePago", b =>
-                {
-                    b.Navigation("PlanesDePago");
                 });
 
             modelBuilder.Entity("AlquileresAutos.Models.Modelo", b =>

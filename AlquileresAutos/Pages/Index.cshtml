@@ -54,6 +54,9 @@
         <td>
                 @item.Modelo.CantPasajeros
         </td>
+        <td>
+                <a asp-page="./mediodepago" asp-route-id="@item.ID">Select</a>
+        </td>
     </tr>
 }
 </table>

@@ -1,0 +1,24 @@
+﻿@page
+@model AlquileresAutos.Pages.MedioDePagoModel
+@{
+
+}
+
+<h1>
+    Titulo de la pagina
+</h1>
+<p>Algun parrafo</p>
+
+@if(Model.Auto != null){
+    <h3>Auto Seleccionado</h3>
+    <table class="table">
+        <tr>
+            <th>Autito</th>
+        </tr>
+        <tr>
+            <td>
+               @Model.Auto.Patente
+            </td>
+        </tr>
+    </table>
+}
