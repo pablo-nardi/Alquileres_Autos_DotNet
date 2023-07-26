@@ -14,12 +14,12 @@ namespace AlquileresAutos.Services
         {
             _context= context;
         }
-        public async Task<IList<Auto>> GetAutos(string LocalidadSearch)
+        public async Task<IList<Auto>> GetAutos(int LocalidadID)
         {
             Autos = await _context.Autos
             .Include(a => a.Modelo)
             .Include(a => a.Sucursal)
-            .Where(a => a.Sucursal.Localidad.Denominacion.ToUpper().Contains(LocalidadSearch.ToUpper()))
+            .Where(a => a.Sucursal.Localidad.ID == LocalidadID)
             .AsNoTracking().ToListAsync();
 
             return Autos;

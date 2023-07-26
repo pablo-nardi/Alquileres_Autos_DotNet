@@ -5,17 +5,37 @@
 }
 
 <div class="row mb-auto">
-    <form method="post">
-        <div class="col-md-4">
+    <form method="get">
+        <div class="col-md-6">
             <div class="row no-gutters border mb-4">
+                <h3>Elija lugar de retiro</h3>
                 <div class="col p-4 mb-4 ">
-                    <label asp-for="LocalidadSearch" class="control-label">Lugar de Retiro</label>
-                    <input type="search" asp-for="LocalidadSearch" class="form-control" />
+                    
+                    <label asp-for="ProvinciaID" class="control-label">Elija Provincia</label>
+                    <select asp-for="ProvinciaID" class="form-control" onchange="this.form.submit()">
+                        <option value="">Seleccione una Provincia </option>
+                        @foreach(var provincia in Model.Provincias)
+                        {
+                            <option value="@provincia.ID"> @provincia.Denominacion </option>
+                        }
+                    </select>
+                    
+                </div>
+                <div class="col p-4 mb-4 ">
+                    <label asp-for="LocalidadID" class="control-label">Elija Localidad</label>
+                    <select asp-for="LocalidadID" class="form-control">
+                        <option value="">Elija Localidad</option>
+                    @if (Model.Localidades != null)
+                    {
+                        @foreach (var localidad in Model.Localidades)
+                        {
+                            <option value="@localidad.ID">@localidad.Denominacion </option>
+                        }
+                    }
+                </select>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="row no-gutters border mb-4">
+            <div class="row no-gutters border mb-6">
                 <div class="col p-4 mb-4 ">
                     <input type="submit" class="form-control" />
                 </div>

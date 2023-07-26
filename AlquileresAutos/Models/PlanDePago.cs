@@ -9,9 +9,9 @@ namespace AlquileresAutos.Models
         [StringLength(50, MinimumLength = 3)]
         public string NombrePlanDePago { get; set; }
         public string DescripcionPlanDePago { get; set; }
-        public int IDEntidadCrediticia { get; set; }
+        public int EntidadCrediticiaID { get; set; }
         public EntidadCrediticia EntidadCrediticia { get; set; }
-        public int IDMedioDePago { get; set; }
+        public int MedioDePagoID { get; set; }
         public MedioDePago MedioDePago { get; set; }
 
     }
