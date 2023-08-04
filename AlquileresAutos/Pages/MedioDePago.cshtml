@@ -4,10 +4,87 @@
 
 }
 
-<h1>
-    Titulo de la pagina
-</h1>
-<p>Algun parrafo</p>
+<h2> Elija el medio de pago </h2>
+<form method="post">
+    <div class="row mb-auto">
+        <div class="row">
+            <div class="col-md-6 mb-2 border ">
+                <h5>Tarjeta</h5>
+                <select class="form-control" >
+                    <option value="">Seleccione Tarjeta</option>
+                    @foreach(var mdp in Model.MediosDePago)
+                    {
+                        <option value="@mdp.MedioDePagoID">@mdp.nombreMedioDePago</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6 mb-2 border ">
+                <h5>Banco</h5>
+                <select class="form-control" >
+                    <option value="">Seleccione Banco</option>
+                    @foreach(var ec in Model.EntidaddesCrediticias)
+                    {
+                        <option value="@ec.EntidadCrediticiaID">@ec.nombreEntidadCrediticia</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 border ">
+                <h5>Cuotas</h5>
+                <select class="form-control" >
+                    <option value="1">1 Cuotas</option>
+                    <option value="3">3 Cuotas</option>
+                    <option value="6">6 Cuotas</option>
+                    <option value="9">9 Cuotas</option>
+                    <option value="12">12 Cuotas</option>
+                </select>
+            </div>
+            <div class="col-md-3 border ">
+                <h5>Total</h5>
+                <input type="number" class="form-control"  />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-2 border ">
+                <h5>Numero de Tarjeta de Credito (sin espacio ni guiones)</h5>
+                <input type="number" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-2 border ">
+                <h5>Titular de la Tarjeta (Como figura en la Tarjeta)</h5>
+                <input type="number" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <h5>Fecha de Vencimiento</h5>
+            <div class="col-md-3 mb-2 border ">
+                <h5>Mes</h5>
+                <select class="form-control">
+                    <option value="">Mes</option>
+                    @for(int i = 1; i <= 12; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+
+                </select>
+            </div>
+            <div class="col-md-3 mb-2 border ">
+                <h5>Año</h5>
+                <select class="form-control">
+                    <option value="">Año</option>
+                    @for (int i = Model.anioSiguienteAlActual; i <= 2035; i++)
+                    {
+                        <option value="@i">@i</option>
+                    }
+                </select>
+            </div>
+            <div class="col-md-6 mb-2 border ">
+                <h5>Codigo de Seguridad</h5>
+                <input type="number" class="form-control" />
+            </div>
+        </div>
+    </div>
+</form>
 
 @if(Model.Auto != null){
     <h3>Auto Seleccionado</h3>

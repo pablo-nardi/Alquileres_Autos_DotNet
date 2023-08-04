@@ -11,7 +11,11 @@ namespace AlquileresAutos.Pages
     {
         private readonly AlquileresAutos.Data.AlquileresAutosContext _context;
         public Auto Auto { get; set; }
-        
+        public IList<MedioDePago> MediosDePago { get; set; }
+        public IList<EntidadCrediticia> EntidaddesCrediticias { get; set; }
+        public int anioSiguienteAlActual = DateTime.Now.Year + 1;
+
+
         public MedioDePagoModel(AlquileresAutosContext context)
         {
             _context = context;
@@ -22,6 +26,8 @@ namespace AlquileresAutos.Pages
             {
                 Auto = await _context.Autos.FindAsync(id);
             }
+            MediosDePago = await _context.MediosDePagos.ToListAsync();
+            EntidaddesCrediticias = await _context.EntidadesCrediticias.ToListAsync();
         }
     }
 }
