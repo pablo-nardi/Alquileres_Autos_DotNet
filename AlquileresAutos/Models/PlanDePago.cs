@@ -25,6 +25,7 @@ namespace AlquileresAutos.Models
         [Required]
         public int MedioDePagoID { get; set; }
         public MedioDePago MedioDePago { get; set; }
+        
 
     }
 }

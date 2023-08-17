@@ -43,10 +43,11 @@
         </div>
     </form>
 </div>
-
+<form asp-page="./mediodepago" method="get">
 @if(Model.Autos is not null)
 {
 <h3>Autos Disponible</h3>
+
 <table class="table">
     <tr>
         <th>Nombre</th> 
@@ -75,9 +76,10 @@
                 @item.Modelo.CantPasajeros
         </td>
         <td>
-                <a asp-page="./mediodepago" asp-route-id="@item.ID">Select</a>
+            <input type="submit" value="Elegir Auto" class="btn btn-primary" />
         </td>
     </tr>
 }
 </table>
 }
+    </form>

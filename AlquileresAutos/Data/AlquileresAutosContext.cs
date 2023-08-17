@@ -33,6 +33,7 @@ namespace AlquileresAutos.Data
         public DbSet<AlquileresAutos.Models.MedioDePago> MediosDePagos { get; set; }
         public DbSet<AlquileresAutos.Models.PlanDePago> PlanesDePagos { get; set; }
         public DbSet<AlquileresAutos.Models.Alquiler> Alquileres { get; set; }
+        public DbSet<AlquileresAutos.Models.Tarjeta> Tarjetas { get; set; }
 
 
     }

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using AlquileresAutos.Models;
 using AlquileresAutos.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ContosoUniversity.Pages
 {
@@ -19,6 +18,8 @@ namespace ContosoUniversity.Pages
         public GetAutosLocalidad _GetAutosLocalidad { get; set; }
         public IList<Provincia> Provincias { get; set; }
         public IEnumerable<Localidad> Localidades { get; set; }
+        public Alquiler Alquiler { get; set; }
+
         public IndexModel(  ILogger<IndexModel> logger, 
                             AlquileresAutos.Data.AlquileresAutosContext context)
         {
@@ -40,9 +41,7 @@ namespace ContosoUniversity.Pages
             {
                 Autos = await _GetAutosLocalidad.GetAutos(LocalidadID.Value);
             }
-
             return Page();
         }
-       
     }
 }

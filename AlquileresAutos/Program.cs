@@ -7,8 +7,14 @@ using AlquileresAutos.Data;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
-//    options.UseSqlServer(builder.Configuration.GetConnectionString("AlquileresAutosModelos") ?? throw new InvalidOperationException("Connection string 'AlquileresAutosModelos' not found.")));
-
+builder.Services.AddDistributedMemoryCache();
+//Indico uso de sesion
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout= TimeSpan.FromMinutes(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 builder.Services.AddDbContext<AlquileresAutosContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AlquileresAutosContext") ?? throw new InvalidOperationException("Connection string 'AlquileresAutosContext' not found.")));
 
@@ -44,6 +50,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.UseSession();
 
 app.MapRazorPages();
 

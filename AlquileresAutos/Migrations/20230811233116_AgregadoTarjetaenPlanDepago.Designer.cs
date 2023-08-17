@@ -4,6 +4,7 @@ using AlquileresAutos.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlquileresAutos.Migrations
 {
     [DbContext(typeof(AlquileresAutosContext))]
-    partial class AlquileresAutosContextModelSnapshot : ModelSnapshot
+    [Migration("20230811233116_AgregadoTarjetaenPlanDepago")]
+    partial class AgregadoTarjetaenPlanDepago
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -308,6 +311,9 @@ namespace AlquileresAutos.Migrations
                     b.Property<float>("PrecioPorCuota")
                         .HasColumnType("real");
 
+                    b.Property<int>("TarjetaID")
+                        .HasColumnType("int");
+
                     b.Property<float>("TotalAPagar")
                         .HasColumnType("real");
 
@@ -316,6 +322,8 @@ namespace AlquileresAutos.Migrations
                     b.HasIndex("EntidadCrediticiaID");
 
                     b.HasIndex("MedioDePagoID");
+
+                    b.HasIndex("TarjetaID");
 
                     b.ToTable("PlanesDePagos");
                 });
@@ -517,9 +525,17 @@ namespace AlquileresAutos.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AlquileresAutos.Models.Tarjeta", "Tarjeta")
+                        .WithMany()
+                        .HasForeignKey("TarjetaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("EntidadCrediticia");
 
                     b.Navigation("MedioDePago");
+
+                    b.Navigation("Tarjeta");
                 });
 
             modelBuilder.Entity("AlquileresAutos.Models.Sucursal", b =>
